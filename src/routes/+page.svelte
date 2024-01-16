@@ -8,9 +8,10 @@
         const response = await fetch('Listado.csv');
         const data = await response.text();
         const rows = data.split('\n').slice(2);
-        array = rows.map(row => {
+        array = rows.map((row,i) => {
             const columns = row.split(';');
             return {
+                id: i,
                 codigo: columns[0],
                 descripcion: columns[1],
                 marca: columns[2],
@@ -27,16 +28,16 @@
                 destacado_web : columns[13],   
             }
         });
-        array=array.slice(0, 30000);
+        array=array.slice(0, 40000);
         
   
     });
     
    $: if(array.length > 0 ){
      tableSource : TableSource= {
-        	head: ['Codigo', 'Descripcion', 'Marca', 'Tipo Articulo', 'Clase', 'Detalle', 'Activo', 'Stock Negativo', 'Fecha Vencimiento', 'Certificado Calidad', 'Codigo Barra', 'Fecha Alta', 'Publicado Web', 'Destacado Web'],
+        	head: ['Id','Codigo', 'Descripcion', 'Marca', 'Tipo Articulo', 'Clase', 'Detalle', 'Activo', 'Stock Negativo', 'Fecha Vencimiento', 'Certificado Calidad', 'Codigo Barra', 'Fecha Alta', 'Publicado Web', 'Destacado Web'],
 	// The data visibly shown in your table body UI.
-	body: tableMapperValues(array, ['codigo', 'descripcion', 'marca', 'tipo_articulo', 'clase', 'detalle', 'activo', 'stock_negativo', 'fecha_vencimiento', 'certificado_calidad', 'codigo_barra', 'fecha_alta', 'publicado_web', 'destacado_web']),
+	body: tableMapperValues(array, ['id','codigo', 'descripcion', 'marca', 'tipo_articulo', 'clase', 'detalle', 'activo', 'stock_negativo', 'fecha_vencimiento', 'certificado_calidad', 'codigo_barra', 'fecha_alta', 'publicado_web', 'destacado_web']),
      }
     }
     
