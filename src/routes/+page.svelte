@@ -28,7 +28,7 @@
                 destacado_web : columns[13],   
             }
         });
-        array=array.slice(0, 35000);
+        array=array.slice(0, 25000);
         
   
     });
