@@ -29,7 +29,7 @@
         });
        const tableSource = {
         	head: ['Id','Codigo', 'Descripcion', 'Marca', 'Tipo Articulo', 'Clase', 'Detalle', 'Activo', 'Stock Negativo', 'Fecha Vencimiento', 'Certificado Calidad', 'Codigo Barra', 'Fecha Alta', 'Publicado Web', 'Destacado Web'],
-	        body: tableMapperValues(array.slice(0, 25000), ['id','codigo', 'descripcion', 'marca', 'tipo_articulo', 'clase', 'detalle', 'activo', 'stock_negativo', 'fecha_vencimiento', 'certificado_calidad', 'codigo_barra', 'fecha_alta', 'publicado_web', 'destacado_web']),
+	        body: tableMapperValues(array.slice(0, 10), ['id','codigo', 'descripcion', 'marca', 'tipo_articulo', 'clase', 'detalle', 'activo', 'stock_negativo', 'fecha_vencimiento', 'certificado_calidad', 'codigo_barra', 'fecha_alta', 'publicado_web', 'destacado_web']),
      }
      return tableSource;
     }
