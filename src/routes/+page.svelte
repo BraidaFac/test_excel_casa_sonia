@@ -27,13 +27,9 @@
                 destacado_web : columns[13],   
             }
         });
-       const tableSource = {
-        	head: ['Id','Codigo', 'Descripcion', 'Marca', 'Tipo Articulo', 'Clase', 'Detalle', 'Activo', 'Stock Negativo', 'Fecha Vencimiento', 'Certificado Calidad', 'Codigo Barra', 'Fecha Alta', 'Publicado Web', 'Destacado Web'],
-	        body: tableMapperValues(array.slice(0, 10), ['id','codigo', 'descripcion', 'marca', 'tipo_articulo', 'clase', 'detalle', 'activo', 'stock_negativo', 'fecha_vencimiento', 'certificado_calidad', 'codigo_barra', 'fecha_alta', 'publicado_web', 'destacado_web']),
-     }
-     return tableSource;
+       return array.slice(0, 2500);
     }
-    const tableSource =  getRows();
+    const rows =  getRows();
     
     
  
@@ -43,10 +39,51 @@
   
 </script>
 <div>
-{#await tableSource}
+{#await rows}
         <p>Loading...</p>
 {:then list}
-         <Table source={list} /> 
+<table class="table">
+			<thead>
+				<tr>
+					<th>ID</th>
+                    <th>Codigo</th>
+                    <th>Descripcion</th>
+                    <th>Marca</th>
+                    <th>Tipo Articulo</th>
+                    <th>Clase</th>
+                    <th>Detalle</th>
+                    <th>Activo</th>
+                    <th>Stock Negativo</th>
+                    <th>Fecha Vencimiento</th>
+                    <th>Certificado Calidad</th>
+                    <th>Codigo Barra</th>
+                    <th>Fecha Alta</th>
+                    <th>Publicado Web</th>
+                    <th>Destacado Web</th>
+				</tr>
+			</thead>
+			<tbody>
+				{#each list as item (item.id)}
+					<tr>
+						<td>{item.id}</td>
+                        <td>{item.codigo}</td>
+                        <td>{item.descripcion}</td>
+                        <td>{item.marca}</td>
+                        <td>{item.tipo_articulo}</td>
+                        <td>{item.clase}</td>
+                        <td>{item.detalle}</td>
+                        <td>{item.activo}</td>
+                        <td>{item.stock_negativo}</td>
+                        <td>{item.fecha_vencimiento}</td>
+                        <td>{item.certificado_calidad}</td>
+                        <td>{item.codigo_barra}</td>
+                        <td>{item.fecha_alta}</td>
+                        <td>{item.publicado_web}</td>
+                        <td>{item.destacado_web}</td>
+					</tr>
+				{/each}
+			</tbody>
+		</table>
 {:catch error}
 	<p style="color: red">{error.message}</p>
 {/await}
