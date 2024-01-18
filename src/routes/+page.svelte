@@ -2,7 +2,7 @@
     import { onMount } from 'svelte';
     import { Table, tableMapperValues } from '@skeletonlabs/skeleton';
     import type { Tab, TableSource } from '@skeletonlabs/skeleton';
-
+    let rows : any[] = [];
     async function getRows() {
         const response = await fetch('Listado.csv');
         const data = await response.text();
@@ -29,8 +29,10 @@
         });
        return array.slice(0, 2500);
     }
-    const rows =  getRows();
-    
+
+    onMount(async ()=>{
+        rows = await getRows();
+    })
     
  
      
@@ -39,9 +41,9 @@
   
 </script>
 <div>
-{#await rows}
+{#if rows.length === 0}
         <p>Loading...</p>
-{:then list}
+{:else }
 <table class="table">
 			<thead>
 				<tr>
@@ -51,7 +53,7 @@
                     <th>Marca</th>
                     <th>Tipo Articulo</th>
                     <th>Clase</th>
-                    <th>Detalle</th>
+                  <!--   <th>Detalle</th>
                     <th>Activo</th>
                     <th>Stock Negativo</th>
                     <th>Fecha Vencimiento</th>
@@ -59,11 +61,11 @@
                     <th>Codigo Barra</th>
                     <th>Fecha Alta</th>
                     <th>Publicado Web</th>
-                    <th>Destacado Web</th>
+                    <th>Destacado Web</th> -->
 				</tr>
 			</thead>
 			<tbody>
-				{#each list as item (item.id)}
+				{#each rows as item (item.id)}
 					<tr>
 						<td>{item.id}</td>
                         <td>{item.codigo}</td>
@@ -71,7 +73,7 @@
                         <td>{item.marca}</td>
                         <td>{item.tipo_articulo}</td>
                         <td>{item.clase}</td>
-                        <td>{item.detalle}</td>
+                        <!-- <td>{item.detalle}</td>
                         <td>{item.activo}</td>
                         <td>{item.stock_negativo}</td>
                         <td>{item.fecha_vencimiento}</td>
@@ -79,13 +81,12 @@
                         <td>{item.codigo_barra}</td>
                         <td>{item.fecha_alta}</td>
                         <td>{item.publicado_web}</td>
-                        <td>{item.destacado_web}</td>
+                        <td>{item.destacado_web}</td> -->
 					</tr>
 				{/each}
 			</tbody>
 		</table>
-{:catch error}
-	<p style="color: red">{error.message}</p>
-{/await}
+{/if }
+
 
 </div>
